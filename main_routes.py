@@ -11,6 +11,7 @@ scene = {
 
 @main_bp.route("/api/state", methods=["GET", "POST"])
 def api_state():
+    print(request.method, request.remote_addr, request.user_agent)
     global scene
 
     if request.method == "POST":
