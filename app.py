@@ -9,13 +9,13 @@ state = {
     "right_brightness": 1.0,
 }
 
-@app.route("/")
-def index():
-    return render_template("index.html")
+@app.route("/poc")
+def poc():
+    return render_template("poc_index.html")
 
-@app.route("/control")
-def control():
-    return render_template("control.html")
+@app.route("/poc/control")
+def poc_control():
+    return render_template("poc_control.html")
 
 @app.route("/api/state", methods=["GET", "POST"])
 def api_state():
