@@ -1,0 +1,70 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>EyeOpener Control</title>
+    <style>
+        body {
+            background: #111;
+            color: white;
+            font-family: sans-serif;
+            font-size: 24px;
+            padding: 30px;
+        }
+
+        label {
+            display: block;
+            margin: 25px 0;
+        }
+
+        input {
+            width: 500px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>EyeOpener Control</h1>
+
+    <label>
+        Right X
+        <input id="right_x" type="range" min="-0.5" max="0.5" step="0.01" value="0">
+    </label>
+
+    <label>
+        Right Y
+        <input id="right_y" type="range" min="-0.5" max="0.5" step="0.01" value="0">
+    </label>
+
+    <label>
+        Left brightness
+        <input id="left_brightness" type="range" min="0" max="1" step="0.01" value="1">
+    </label>
+
+    <label>
+        Right brightness
+        <input id="right_brightness" type="range" min="0" max="1" step="0.01" value="1">
+    </label>
+
+    <script>
+        const ids = ["right_x", "right_y", "left_brightness", "right_brightness"];
+
+        async function sendState() {
+            const data = {};
+            ids.forEach(id => data[id] = parseFloat(document.getElementById(id).value));
+
+            await fetch("/api/state", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(data)
+            });
+        }
+
+        ids.forEach(id => {
+            document.getElementById(id).addEventListener("input", sendState);
+        });
+    </script>
+</body>
+
+</html>
